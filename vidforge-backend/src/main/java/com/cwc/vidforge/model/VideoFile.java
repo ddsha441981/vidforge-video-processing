@@ -1,8 +1,10 @@
 package com.cwc.vidforge.model;
 
 import com.cwc.vidforge.enums.Status;
+import com.cwc.vidforge.utils.ThumbnailUtils;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -52,4 +54,10 @@ public class VideoFile implements Serializable {
        VideoFile other = (VideoFile) obj;
        return Objects.equals(videoId, other.videoId) && Objects.equals(originalFilename, other.originalFilename);
     }
+
+    @Transient
+    public String getThumbnailUrl() {
+        return ThumbnailUtils.resolvePublicThumbnailUrl(this.thumbnailPath);
+    }
+
 }
