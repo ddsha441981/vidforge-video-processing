@@ -4,6 +4,9 @@ import com.cwc.vidforge.enums.Status;
 import com.cwc.vidforge.model.VideoFile;
 import com.cwc.vidforge.repository.VideoFileRepository;
 import com.cwc.vidforge.services.AdminService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +36,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteVideoByVideoId(String videoId) {
         this.videoFileRepository.deleteById(videoId);
+    }
+
+    @Override
+    public Page<VideoFile> getPaginatedVideos(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return videoFileRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<VideoFile> getPaginatedVideosByStatus(Status status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return videoFileRepository.findByStatus(status, pageable);
     }
 }

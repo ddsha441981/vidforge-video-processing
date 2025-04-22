@@ -29,6 +29,13 @@ public class VideoFile implements Serializable {
     private LocalDateTime processedTime;
     private String processingDetails;
 
+    private String format;
+    private String duration;
+    private String codec;
+    private String resolution;
+    private String thumbnailPath;
+
+
     @Override
     public int hashCode() {
         return Objects.hash(videoId, originalFilename, storageLocation, status, uploadTime, processedTime, processingDetails);

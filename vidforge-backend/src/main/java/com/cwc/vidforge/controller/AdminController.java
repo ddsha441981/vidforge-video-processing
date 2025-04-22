@@ -3,6 +3,7 @@ package com.cwc.vidforge.controller;
 import com.cwc.vidforge.enums.Status;
 import com.cwc.vidforge.model.VideoFile;
 import com.cwc.vidforge.services.AdminService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,4 +61,15 @@ public class AdminController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    @GetMapping("/paginated")
+    public Page<VideoFile> getPaginated(@RequestParam int page, @RequestParam int size) {
+        return adminService.getPaginatedVideos(page, size);
+    }
+
+    @GetMapping("/paginated/status")
+    public Page<VideoFile> getPaginatedByStatus(@RequestParam Status status, @RequestParam int page, @RequestParam int size) {
+        return adminService.getPaginatedVideosByStatus(status, page, size);
+    }
+
 }

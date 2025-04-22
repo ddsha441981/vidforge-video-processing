@@ -1,10 +1,12 @@
 package com.cwc.vidforge.services.impl;
 
 import com.cwc.vidforge.enums.Status;
+import com.cwc.vidforge.model.Metadata;
 import com.cwc.vidforge.model.VideoFile;
 import com.cwc.vidforge.repository.VideoFileRepository;
 import com.cwc.vidforge.services.ProcessingService;
 import com.cwc.vidforge.utils.NotificationService;
+import com.cwc.vidforge.utils.VideoProcessingUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,10 +22,12 @@ public class ProcessingServiceImpl implements ProcessingService {
     private final NotificationService notificationService;
 
     private final ExecutorService executorService;
+    private final VideoProcessingUtils videoProcessingUtils;
 
-    public ProcessingServiceImpl(VideoFileRepository videoFileRepository, NotificationService notificationService) {
+    public ProcessingServiceImpl(VideoFileRepository videoFileRepository, NotificationService notificationService, VideoProcessingUtils videoProcessingUtils) {
         this.videoFileRepository = videoFileRepository;
         this.notificationService = notificationService;
+        this.videoProcessingUtils = videoProcessingUtils;
         this.executorService = Executors.newFixedThreadPool(3);
     }
 
@@ -87,20 +91,38 @@ public class ProcessingServiceImpl implements ProcessingService {
         return "Format conversion completed";
     }
 
-    private String extractMetadata(VideoFile videoFile) throws InterruptedException {
+    private String extractMetadata(VideoFile videoFile) {
         //  metadata extraction
-        Thread.sleep(1500);
-        notificationService.sendProgressUpdate(videoFile.getId(), "Metadata extraction: in progress");
-        Thread.sleep(1500);
-        return "Metadata extraction completed";
+        try {
+            Metadata metadata = videoProcessingUtils.extractMetadata(videoFile.getStorageLocation());
+            videoFile.setFormat(metadata.getFormat());
+            videoFile.setDuration(metadata.getDuration());
+            videoFile.setCodec(metadata.getCodec());
+            videoFile.setResolution(metadata.getResolution());
+            Thread.sleep(1500);
+            notificationService.sendProgressUpdate(videoFile.getId(), "Metadata extraction: in progress");
+            Thread.sleep(1500);
+            return "Metadata extraction completed:  " + metadata.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Metadata extraction failed: " + e.getMessage(), e);
+        }
+
     }
+
 
     private String generateThumbnail(VideoFile videoFile) throws InterruptedException {
         //  thumbnail generation
-        Thread.sleep(1000);
-        notificationService.sendProgressUpdate(videoFile.getId(), "Thumbnail generation: creating thumbnails");
-        Thread.sleep(1000);
-        return "Thumbnail generation completed";
+        try {
+            String thumbnailPath = videoProcessingUtils.getThumbnailPath(videoFile);
+            String savedPath = videoProcessingUtils.generateThumbnail(videoFile.getStorageLocation(), thumbnailPath);
+            videoFile.setThumbnailPath(savedPath);
+            Thread.sleep(1000);
+            notificationService.sendProgressUpdate(videoFile.getId(), "Thumbnail generation: creating thumbnails");
+            Thread.sleep(1000);
+            return "Thumbnail generation completed saved at: " + savedPath;
+        } catch (Exception e) {
+            throw new RuntimeException("Thumbnail generation failed: " + e.getMessage(), e);
+        }
     }
 
     public void shutdown() {
