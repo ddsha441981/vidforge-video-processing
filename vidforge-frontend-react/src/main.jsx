@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
       {/* Public route */}
-      <Route path="/" element={<VideoUploader />} />
+      <Route path="/upload-video" element={<VideoUploader />} />
       {/* Admin route */}
       <Route element={<App />}>
           <Route index element={<Navigate to="/dashboard" replace />} /> 

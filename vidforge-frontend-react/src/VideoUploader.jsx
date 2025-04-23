@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './VideoUploader.css';
 import VideoService from './services/UploadVideoService';
+import { UPLOAD_VIDEO } from './shared/Constant';
 
 const VideoUploader = () => {
   const [file, setFile] = useState(null);
@@ -74,7 +75,7 @@ const VideoUploader = () => {
 
     <div className="upload-page-wrapper">
     <div className="upload-container">
-      <h2>Upload Video</h2>
+      <h2>{UPLOAD_VIDEO}</h2>
 
       <div className="upload-area" onDragOver={(e) => e.preventDefault()} onDrop={handleDrop}>
         <div className="upload-icon">
@@ -125,7 +126,7 @@ const VideoUploader = () => {
         {file && !isUploading && !uploadResponse && (
           <>
             <button className="cancel-button" onClick={handleCancel}>Cancel</button>
-            <button className="upload-button" onClick={handleUpload}>Upload Video</button>
+            <button className="upload-button" onClick={handleUpload}>{UPLOAD_VIDEO}</button>
           </>
         )}
         {uploadResponse && (

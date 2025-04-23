@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './VideoGallery.css';
 import { getPaginatedVideos, getPaginatedVideosByStatus } from '../services/VideoService';
 import { useNavigate } from 'react-router-dom';
+import { FILTER_BY_STATUS, VIDEO_LIBRARY } from '../shared/Constant';
 
 const VideoCard = ({ video, onClick }) => {
   return (
@@ -193,10 +194,10 @@ const VideoGallery = () => {
   return (
     <div className="video-gallery-container">
       <div className="gallery-header">
-        <h2 className="gallery-title">Video Gallery</h2>
+        <h2 className="gallery-title">{VIDEO_LIBRARY}</h2>
         <div className="filter-controls">
           <div className="status-filter">
-            <label htmlFor="status-select">Filter by status:</label>
+            <label htmlFor="status-select">{FILTER_BY_STATUS}</label>
             <select 
               id="status-select" 
               value={statusFilter} 
