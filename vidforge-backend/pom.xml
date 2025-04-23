@@ -15,17 +15,33 @@
 	<description>Video Processing Service with Multithreading</description>
 	<url/>
 	<licenses>
-		<license/>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
 	</licenses>
+
 	<developers>
-		<developer/>
+		<developer>
+			<id>ddsha441981</id>
+			<name>Deendayal Kumawat</name>
+			<email>codewithcup.developer@gmail.com</email>
+			<organization>Infinity</organization>
+			<organizationUrl>https://github.com/ddsha441981</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
 	</developers>
+
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:git://github.com/ddsha441981/vidforge-video-processing.git</connection>
+		<developerConnection>scm:git:ssh://github.com/ddsha441981/vidforge-video-processing.git</developerConnection>
+		<tag>main</tag>
+		<url>https://github.com/ddsha441981/vidforge-video-processing.git</url>
 	</scm>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -76,6 +92,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>vidforge-app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
