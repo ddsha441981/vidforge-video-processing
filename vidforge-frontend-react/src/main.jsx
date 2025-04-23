@@ -7,6 +7,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import setupMockApi from './services/MockService.js'
 import Dashboard from './components/Dashboard.jsx'
 import VideoGallery from './components/VideoGallery.jsx'
+import VideoPlayerPage from './components/VideoPlayerPage.jsx'
 
 // Setup mock API for development/testing
 // if (process.env.NODE_ENV === 'development') {
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
           <Route index element={<Navigate to="/dashboard" replace />} /> 
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="video-gallery" element={<VideoGallery />} />
+          <Route path="/videos/:videoId" element={<VideoPlayerPage />} />
         </Route>
     </Routes>
   </BrowserRouter>

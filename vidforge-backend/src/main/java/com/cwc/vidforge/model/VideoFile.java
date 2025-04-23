@@ -2,6 +2,7 @@ package com.cwc.vidforge.model;
 
 import com.cwc.vidforge.enums.Status;
 import com.cwc.vidforge.utils.ThumbnailUtils;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -59,5 +61,47 @@ public class VideoFile implements Serializable {
     public String getThumbnailUrl() {
         return ThumbnailUtils.resolvePublicThumbnailUrl(this.thumbnailPath);
     }
+
+    @Transient
+    @JsonProperty("formattedDuration")
+    public String getFormattedDuration() {
+        try {
+            double durationInSeconds = Double.parseDouble(this.duration);
+            long totalSeconds = (long) durationInSeconds;
+
+            long hours = totalSeconds / 3600;
+            long minutes = (totalSeconds % 3600) / 60;
+            long seconds = totalSeconds % 60;
+
+            StringBuilder formatted = new StringBuilder();
+            if (hours > 0) formatted.append(hours).append("h ");
+            if (minutes > 0) formatted.append(minutes).append("m ");
+            formatted.append(seconds).append("s");
+
+            return formatted.toString();
+        } catch (Exception e) {
+            return "Invalid duration";
+        }
+    }
+
+    @Transient
+    @JsonProperty("formattedUploadTime")
+    public String getFormattedUploadTime() {
+        return formatDateTime(uploadTime);
+    }
+
+    @Transient
+    @JsonProperty("formattedProcessedTime")
+    public String getFormattedProcessedTime() {
+        return formatDateTime(processedTime);
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
+        return dateTime.format(formatter);
+    }
+
+
 
 }
