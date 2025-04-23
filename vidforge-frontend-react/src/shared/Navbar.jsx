@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ toggleSidebar }) => {
   return (
@@ -7,7 +8,7 @@ const Navbar = ({ toggleSidebar }) => {
         ☰
       </button>
       <ul className="navbar-menu">
-        <li><a href="#dashboard">Dashboard</a></li>
+        <li><Link to={"/dashboard"}>Dashboard</Link></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#tasks">Tasks</a></li>
         <li><a href="#reports">Reports</a></li>

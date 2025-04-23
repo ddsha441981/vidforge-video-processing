@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './VideoUploader.css';
-import VideoService from './services/VideoService';
+import VideoService from './services/UploadVideoService';
 
 const VideoUploader = () => {
   const [file, setFile] = useState(null);
