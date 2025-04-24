@@ -2,12 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import VideoUploader from './VideoUploader.jsx'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import setupMockApi from './services/MockService.js'
 import Dashboard from './components/Dashboard.jsx'
 import VideoGallery from './components/VideoGallery.jsx'
 import VideoPlayerPage from './components/VideoPlayerPage.jsx'
+import UploadApp from './uploader/Upload.jsx'
 
 // Setup mock API for development/testing
 // if (process.env.NODE_ENV === 'development') {
@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
       {/* Public route */}
-      <Route path="/upload-video" element={<VideoUploader />} />
+      <Route path="/upload-video" element={<UploadApp />} />
       {/* Admin route */}
       <Route element={<App />}>
           <Route index element={<Navigate to="/dashboard" replace />} /> 

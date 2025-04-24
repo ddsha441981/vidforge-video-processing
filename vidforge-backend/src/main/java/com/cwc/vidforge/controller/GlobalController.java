@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller("/api")
+@Controller
 public class GlobalController {
 
-    @GetMapping
+    @GetMapping("/")
     @ResponseBody
     public String welcomePage() {
         return "API working fine";
