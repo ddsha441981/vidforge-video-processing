@@ -26,8 +26,9 @@ const VideoCard = ({ video, onClick }) => {
       <div className="video-info">
         <h3 className="video-title">{video.originalFilename}</h3>
         <div className="video-meta">
-          <span className="upload-date">{video.formattedUploadTime}</span>
-          <StatusBadge status={video.status} />
+          <span className="upload-date"><p><strong>Upload:</strong></p> {video.formattedUploadTime}</span>
+          <span className="upload-date"><p><strong>Processed:</strong></p> {video.formattedProcessedTime}</span>
+          {/* <StatusBadge status={video.status} /> */}
         </div>
       </div>
     </div>
