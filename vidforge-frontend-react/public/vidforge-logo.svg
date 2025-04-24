@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="256" height="256" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .bg { fill: none; }
+      .primary1 { fill: #1abc9c; }
+      .primary2 { fill: #e67e22; }
+      .primary3 { fill: #9b59b6; }
+      .text { fill: #3498db; font-size: 80px; font-family: Arial, sans-serif; font-weight: bold; }
+    </style>
+  </defs>
+  <rect class="bg" width="512" height="512"/>
+  <g transform="translate(90, 90) scale(1.5)">
+    <path class="primary1" d="M64 0c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16l128-80L64 0z"/>
+    <path class="primary2" d="M140 36c-24 20-24 52-4 78-10-28 4-44 20-56 12 8 24 24 20 48 16-12 20-44-8-64-8-4-20-8-28-8z"/>
+    <path class="primary3" d="M172 200l-60-60v60z"/>
+  </g>
+  <text class="text" x="70" y="490">VidForge</text>
+</svg>
